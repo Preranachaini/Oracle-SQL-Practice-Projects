@@ -88,7 +88,19 @@ order by customer.email;
 
 SELECT artistname.name, artistname.artist_id, COUNT(track.track_id) AS no_of_songs
 FROM artistname
-JOIN album ON artistname.art
+JOIN album ON artistname.artist_id = album.artist_id
+JOIN track ON album.album_id = track.album_id
+JOIN genre ON track.genre_id = genre.genre_id
+WHERE genre.name = 'Rock'
+GROUP BY artistname.name, artistname.artist_id
+ORDER BY no_of_songs DESC;
+
+
+-- Q8. Return all the track names that have a song length longer than the average song length. Return the name and the milisecounds ofor each track. Order by the song length with the longest songs listed first.
+select track.name, track.milliseconds
+from track where milliseconds > ( select avg(track.milliseconds) as avg_song_length from track)
+order by track.milliseconds desc;
+
 
 
 
