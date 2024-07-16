@@ -64,4 +64,31 @@ FROM (
 WHERE ROWNUM <= 5;
 
 
+-- MODERATE LEVEL QUESTIONS
+
+-- Q6. Write a query to return the first name, last name, email, & genre of all rock music listeners. Return your list ordered alphabetically by email starting with A.
+
+select * from track;
+select * from genre;
+select * from invoice_line;
+
+select distinct customer.email, customer.first_name, customer.last_name from customer
+join invoice on customer.customer_id = invoice.customer_id
+join invoice_line on invoice.invoice_id = invoice_line.invoice_id
+JOIN track ON invoice_line.track_id = track.track_id
+where track.track_id in(
+select track.track_id
+    FROM track
+    JOIN genre ON track.genre_id = genre.genre_id
+    WHERE genre.name = 'Rock')
+order by customer.email;
+
+
+-- Q7. Inviting artists who have writtern the most rock music in the music dataset . Write a query that returns the artist name and total track count of the top 10 rock bands.
+
+SELECT artistname.name, artistname.artist_id, COUNT(track.track_id) AS no_of_songs
+FROM artistname
+JOIN album ON artistname.art
+
+
 
